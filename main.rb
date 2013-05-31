@@ -91,14 +91,16 @@ def admin_menu
 	end
 end
 
-def set_shelter(shelter_name)
-	if @shelters[shelter_name.to_sym] == nil
-		puts "Sorry, shelter does not exist"
-		return false
-	else
-		@curr_shelter = @shelters[shelter_name.to_sym]
-		return true
+def select_shelter
+	puts "Please select a valid shelter from the following:"
+	shelter_list
+	shelter_name = gets.chomp.downcase
+	while @shelters[shelter_name.to_sym] == nil
+		puts "Invalid: please select a valid shelter"
+		shelter_list
+		shelter_name = gets.chomp.downcase
 	end
+	@curr_shelter = @shelters[shelter_name.to_sym] 
 end
 
 def add_shelter
@@ -220,14 +222,7 @@ def give_pet_away
 	end
 
 	# Choose a shelter
-	puts "Please select a shelter to give your pet to"
-	shelter_list
-	shelter_name = gets.chomp.downcase
-	while !set_shelter(shelter_name)
-		puts "Invalid shelter, here are the shelters to choose from"
-		shelter_list
-		shelter_name = gets.chomp.downcase
-	end
+	select_shelter
 
 	@curr_user.give_pet_away(@curr_pet, @curr_shelter)
 	puts "Pet givenn away successfully"
@@ -242,18 +237,11 @@ def set_shelter_pet(pet_name)
 		return true
 	end
 end
-def adopt_pet 
-	puts "Please select a shelter to visit"
-	shelter_list
-	shelter_name = gets.chomp.downcase
-	while !set_shelter(shelter_name)
-		puts "Invalid shelter, here are the shelters to choose from"
-		shelter_list
-		shelter_name = gets.chomp.downcase
-	end
 
+def adopt_pet 
+	select_shelter
 	puts "Here are the dogs in this shelter"
-	@curr_shelter.pets
+	@curr_shelter.avail_pets
 	puts "Select one"
 	pet_name = gets.chomp.downcase
 
@@ -262,7 +250,8 @@ def adopt_pet
 		@curr_shelter.avail_pets
 		pet_name = gets.chomp.downcase
 	end
-	@curr_user.add_pet(@curr_pet, @curr_shelter)
+	info
+	@curr_user.adopt_pet(@curr_pet, @curr_shelter)
 end
 
 def shelter_menu
@@ -271,6 +260,14 @@ def shelter_menu
 	remove_pet
 end
 
+def info
+	puts "---Pets"
+	puts @curr_pet
+	puts "---User"
+	puts @curr_user
+	puts "--- Shelter"
+	puts @curr_shelter
+end
 #def usr_menu
 #	puts "What is your name"
 #	name = gets.chomp.downcase
