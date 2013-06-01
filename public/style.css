@@ -1,0 +1,48 @@
+html{
+	background: black; 
+}
+nav li, a {
+	list-style-type:none;
+	text-decoration: none;
+	display: inline;
+	font-size: 40px;	
+	padding: 15px;
+	color: red;
+}
+nav{
+	color:red;
+	margin 0: auto;
+}
+
+.main_txt{
+	background-color: rgba(255,255,255,0.85);
+	width: 800px;
+	margin: 20px auto 20px auto; 
+	padding: 20px;
+	-webkit-border-radius:18px;
+	-moz-border-radius:18px;
+	border-radius:18px;
+}
+
+.footer{
+	margin: 20px auto 20px auto; 
+	padding: 20px;
+	width: 800px;
+	margin: 0 auto;
+	text-align: center;
+	color: blue;
+}
+
+.footer img {
+	text-align: right;
+}
+
+
+.header{
+	top: 0;
+	width:800px;
+	margin: 0 auto;
+	height:50px;
+	/*background-color:red;*/
+	z-index:1000;
+}

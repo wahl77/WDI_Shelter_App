@@ -1,0 +1,34 @@
+
+<!-- The Main White Box -->
+<div class="main_txt">
+	<h1>Shelter  Website</h1> 
+	<hr />
+	<table width="100%">
+		<thead>
+			<tr>
+				<td> <h1>Pets - View </h1></td>
+				<td> <h1>Adopt </h1></td>
+			</tr>
+		</thead>
+		<tr>
+			<td>
+				<% $curr_user.pets.each do |k, pet| %>
+					<form method="get" action="Users/Give_away" />
+						<input type="radio" value="<%= pet.name %>" <h2><%= pet.name  %></h2></input>
+						<ul>
+							<% pet.toys.each do |toy| %>
+								<li> <%= toy %></li>
+							<% end %>
+						</ul>
+						<button>Give Away</button>
+					</form>
+				<% end %>
+			</td>
+			<td>
+				<form action="/Shelter/" method="get">
+					<button> Submit </button>
+				</form>
+			</td>
+		</tr>
+	</table>
+</div>

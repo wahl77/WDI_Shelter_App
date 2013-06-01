@@ -9,7 +9,7 @@ class Client
 		if @pets.length > 0
 			@pets
 		else
-			puts "No pets for this #{@name}"
+			puts "No pets for #{@name}"
 			@pets
 		end
 

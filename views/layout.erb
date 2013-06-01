@@ -1,0 +1,25 @@
+<html> 
+	<head>
+		<title>PlayGround - <%= @page %> </title>
+		<link rel='stylesheet' href="normalize.css" />
+		<link rel='stylesheet' href="/style.css" />
+	</head>
+
+	<body>
+		<div class="header">
+
+		<!-- Global Nav Bar -->
+		<nav>			
+		<ul>
+			<li> <a href="/">Home</a></li>
+			<li> <a href="/Movies/">Movies</a> </li>
+			<li> <a href="/Stocks/">Stocks</a> </li>
+			<li> <a href="/Images/">Images</a> </li>
+		</ul>
+		</nav>
+		<!-- End global nav bar --> </div>
+		<%= yield %>
+		<div class="footer">&copy; 2013 Franky</div>
+	</div> 
+</body>
+</html>

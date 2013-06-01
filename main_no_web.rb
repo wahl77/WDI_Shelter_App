@@ -2,14 +2,11 @@
 # Adopt Pet
 # Give up pet
 
-require "sinatra"
-require "sinatra/reloader"
-
 require_relative "client"
 require_relative "pets"
 require_relative "shelter"
 
-pet = Pet.new("Max:dog", "m", "dog")
+pet = Pet.new("max", "m", "dog")
 pet2 = Pet.new("choui", "m", "dog")
 
 
@@ -27,6 +24,7 @@ shelter_2 = Shelter.new("shelter_2")
 shelter_2.add_pet(pet2)
 
 Franky = Client.new("Franky")
+
 Franky.has_pets
 Franky.adopt_pet(pet, shelter_1)
 Franky.has_pets
@@ -34,44 +32,17 @@ Franky.has_pets
 shelter_2.add_pet(pet2)
 
 
-#before do 
-#@users = {}
-#@users[:franky] = Franky
-#@shelters = {}
-#@shelters[:shelter_1] = shelter_1
-#@shelters[:shelter_2] = shelter_2
-##@pets = {}
-##@pets[pet.name.to_sym] = pet
-#
-#@curr_user
-#@curr_shelter
-#@curr_pet
-#end
-#
-$users = {}
-$users["Franky"] = Franky
-$users["Max"] = Client.new("Max")
-$shelters = {}
-$shelters[:shelter_1] = shelter_1
-$shelters[:shelter_2] = shelter_2
+@users = {}
+@users[:franky] = Franky
+@shelters = {}
+@shelters[:shelter_1] = shelter_1
+@shelters[:shelter_2] = shelter_2
+#@pets = {}
+#@pets[pet.name.to_sym] = pet
 
-$curr_user
-$curr_shelter
-$curr_pet
-
-
-get "/" do
-	erb :index
-end
-get "/Users/menu" do
-	user_name = params[:user_name]
-	$curr_user = $users[user_name]
-	erb :users
-end
-get "/Shelters/:name" do
-	erb :shelters
-end
-
+@curr_user
+@curr_shelter
+@curr_pet
 
 def run
 	while true
@@ -411,4 +382,4 @@ end
 
 
 			
-#run
+run
