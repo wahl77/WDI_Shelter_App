@@ -1,0 +1,12 @@
+
+<!-- The Main White Box -->
+<div class="main_txt">
+	<h1>Shelter  Website</h1> 
+	<hr />
+	<form method="get" action="shelter_list_pets" />
+		<% $shelters.each do |k, shelter| %>
+			<input type="radio" group="shelter_name" name="shelter_name" value="<%=shelter.name%>" <h2><%= shelter.name  %></h2></input><br />
+		<% end %>
+		<button>Find Pets</button>
+	</form>
+</div>

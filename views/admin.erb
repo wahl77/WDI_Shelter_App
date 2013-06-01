@@ -1,0 +1,48 @@
+
+<!-- The Main White Box -->
+<div class="main_txt">
+	<h1>Shelter  Website</h1> 
+	<hr />
+	<table width="100%">
+		<thead>
+			<tr>
+				<td> <h1>Add User </h1></td>
+				<td> <h1>Add Shelter </h1></td>
+			</tr>
+		</thead>
+		<tr>
+			<td>
+				<form method="get" action="Admin_Validate">
+					<input type="text" name="add_user"></input>
+					<button>Add User</button>
+				</form>
+			</td>
+			<td>
+				<form method="get" action="Admin_Validate">
+					<input type="text" name="add_shelter"></input>
+					<button>Add Shelter</button>
+				</form>
+			</td>
+		</tr>
+			<td>
+				<form method="get" action="Admin_Validate">
+					<select name="del_user">
+						<% $users.each do |key, user| %>
+							<option value="<%= user.name %>" ><%= user.name %></option> 
+						<% end %>
+					</select>
+					<button>Delete user</button>
+				</form>
+			</td>
+			<td>
+			 <form method="get" action="Admin_Validate">
+					<select name="del_shelter">
+						<% $shelters.each do |key, user| %>
+							<option value="<%= user.name %>" ><%= user.name %></option> 
+						<% end %>
+					</select>
+					<button>Delete Shelter</button>
+				</form>
+			</td>
+	</table>
+</div>

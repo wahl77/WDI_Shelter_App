@@ -1,0 +1,16 @@
+<!-- The Main White Box -->
+<div class="main_txt">
+	<h1>Shelter  Website</h1> 
+	<hr />
+	<h1> You are giving  <em><%= $curr_pet.name %></em> away </h1>
+	<h2> Please select a shelter to give it away </h1>
+	<form method="get" action="final_give_away"> 
+		<% $shelters.each do |k, shelter| %>
+
+			<input type="radio" name="shelter_name" value="<%=shelter.name%>" <h2><%= shelter.name  %></input><br />
+	<% end %>
+		<button>Give Away</button>
+	</form>
+	<hr />
+	<%= params %>
+</div>
