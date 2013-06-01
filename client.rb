@@ -16,13 +16,13 @@ class Client
 	end
 
 	def adopt_pet(pet, shelter)
-		@pets[pet.name.to_sym] = pet
+		@pets[pet.name] = pet
 		shelter.remove_pet(pet)
 	end
 
 	def give_pet_away(pet, shelter)
 		shelter.add_pet(pet)
-		@pets.delete(pet.name.to_sym)
+		@pets.delete(pet.name)
 	end
 
 end

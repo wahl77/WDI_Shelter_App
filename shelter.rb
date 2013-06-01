@@ -6,11 +6,11 @@ class Shelter
 	end
 
 	def add_pet(pet)
-		@pets[pet.name.to_sym] = pet
+		@pets[pet.name] = pet
 	end
 
 	def remove_pet(pet)
-		@pets.delete(pet.name.to_sym)
+		@pets.delete(pet.name)
 	end
 
 	def avail_pets
