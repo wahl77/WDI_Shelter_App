@@ -1,9 +1,10 @@
 class Pet
-	attr_accessor :name, :gender, :typ, :toys
+	attr_accessor :name, :gender, :type, :toys, :url
 
 	def initialize(name, gender, type)
 		@name = name
 		@gender = gender
+		@type = type
 		@toys = []
 	end
 

@@ -1,0 +1,39 @@
+<!-- The Main White Box -->
+<div class="main_txt">
+	<h1>Shelter  Website</h1> 
+	<h1> You are <%= $curr_shelter.name %></h1>
+	<table width="100%">
+		<thead>
+			<tr>
+				<td><h1>Delete pet</h1></td>
+				<td><h1>Get pet </h1></td>
+			</tr>
+		</thead>
+		<tr>
+			<td>
+				<form action="shelter_delete_pet" method="get">
+
+					<% $curr_shelter.pets.each do |k, pet| %>
+						<input type="radio" group="pet_name" name="pet_name" value="<%=pet.name %>" <h2><%= pet.name  %></h2></input><br />
+					<% end %>
+					<button>Delete</button>
+				</form>
+			</td>
+			<td>
+				<form action="shelter_add_pet" method="get">
+					Pet name<input type="text" name="pet_name"></input><br/>
+					<select name="gender">
+						<option value="male">male</option> 
+						<option value="female">female</option> 
+					</select><br/>
+					<select name="type">
+						<option value="dog">dog</option> 
+						<option value="cat">cat</option> 
+					</select><br/>
+					Toys<input type="text" name="toys"></input><br />
+					<button>Get Pet</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+</div>

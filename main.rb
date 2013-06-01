@@ -4,6 +4,7 @@
 
 require "sinatra"
 require "sinatra/reloader"
+require "image_suckr"
 
 require_relative "client"
 require_relative "pets"
@@ -13,7 +14,7 @@ pet = Pet.new("Max:dog", "m", "dog")
 pet2 = Pet.new("choui", "m", "dog")
 
 
-pet.add_toy(["adsfa", "adfa"])
+pet.toys=["adsfa", "adfa"]
 pet.get_toys
 
 shelter_1 = Shelter.new("shelter_1")
@@ -83,12 +84,6 @@ get "/Users/shelter_list" do
 	erb :shelter_list
 end
 
-get "/Shelters/:name" do
-	erb :shelters
-end
-
-
-
 get "/Admin" do
 	erb :admin
 end
@@ -125,6 +120,24 @@ get "/Admin_Validate" do
 
 	erb :admin_validate
 
+end
+
+get "/shelter_add_pet" do
+	@pet = Pet.new(params[:pet_name], params[:gender], params[:type]) 
+	suckr = ImageSuckr::GoogleSuckr.new   
+	@pet.url = suckr.get_image_url({"q" => "#{params[:type]}"})
+
+	$curr_shelter.add_pet(@pet)
+
+	erb :shelter_pet_add
+end
+
+get "/Shelter" do
+	shelter_name = params[:shelter_name]
+	$curr_shelter = $shelters[shelter_name]
+
+	
+	erb :shelter
 end
 
 

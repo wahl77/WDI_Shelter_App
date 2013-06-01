@@ -23,7 +23,12 @@
 				</form>
 			</td>
 			<td>
-				<form action="/Shelter/" method="get">
+				<form action="/Shelter" method="get">
+					<select name="shelter_name">
+						<% $shelters.each do |key, shelter| %>
+							<option value="<%= shelter.name %>" ><%= shelter.name %></option> 
+						<% end %>
+					</select>
 					<button> Submit </button>
 				</form>
 			</td>
