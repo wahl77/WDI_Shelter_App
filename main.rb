@@ -10,10 +10,11 @@ require_relative "client"
 require_relative "pets"
 require_relative "shelter"
 
-# Now the program begins
+# Use this to store session information
 $curr_user
 $curr_shelter
 $curr_pet
+# End of session information
 
 def get_users
 	user_file = "data/people.txt"
@@ -26,13 +27,18 @@ def get_users
 	return users
 end
 
-def get_user_pet(user_name)
-	user_file = "data/people.txt"
-	file = File.new(user_file, 'r')
-	users = []
+def get_owner_pet(owner_name, owner_type)
+	if owner_type == "client"
+		file = "data/people.txt"
+	elsif owner_type == "shelter"
+		file = "data/shelter.txt"
+	end
+
+	file = File.new(file, 'r')
+	owner = []
 	while (line = file.gets)
 		words = line.split(",")
-		if words[0] == user_name
+		if words[0] == owner_name
 			dogs = words[1].split("|")
 			return dogs
 		end
@@ -52,22 +58,35 @@ def get_pet_info(pet_name)
 	end
 end
 
+def get_shelters
+	shelter_file = "data/shelter.txt"
+	file = File.new(shelter_file, 'r')
+	shelters = []
+	while (line = file.gets)
+		words = line.split(",")
+		shelters << words[0]
+	end
+	return shelters
+end
 
 
 get "/" do
 	@users = get_users
+	@shelters = get_shelters
 	erb :index
 end
 
 get "/Users/menu" do
 	$curr_user = params[:user_name]
 	@pet_info = {}
-	@pets = get_user_pet($curr_user)
+	@pets = get_owner_pet($curr_user, "client")
 	@pets.each do |pet|
 		@pet_info[pet] = get_pet_info(pet)
 	end
 	erb :users
 end
+
+
 
 get "/Users/Users_Give_away" do
 	begin
@@ -176,8 +195,12 @@ get "/shelter_add_pet" do
 end
 
 get "/Shelter" do
-	shelter_name = params[:shelter_name]
-	$curr_shelter = $shelters[shelter_name]
+	$curr_shelter = params[:shelter_name]
+	@pet_info = {}
+	@pets = get_owner_pet($curr_shelter, "shelter")
+	@pets.each do |pet|
+		@pet_info[pet] = get_pet_info(pet)
+	end
 	erb :shelter
 end
 

@@ -1,7 +1,7 @@
 <!-- The Main White Box -->
 <div class="main_txt">
 	<h1>Shelter  Website</h1> 
-	<h1> You are <%= $curr_shelter.name %></h1>
+	<h1> You are <%= $curr_shelter %></h1>
 	<table width="100%" border="1px">
 		<thead>
 			<tr>
@@ -12,24 +12,26 @@
 		<tr>
 			<td>
 				<form action="shelter_delete_pet" method="get">
-						<table>
-
-
-					<% $curr_shelter.pets.each do |k, pet| %>
+					<table>
+						<% @pets.each do |pet| %>
 							<tr>
 								<td>
-									<img src="<%= pet.url %>" width="100px" />
+									<img src="<%= @pet_info[pet][3] %>" width="100px" />
 								</td>
 								<td>
-						<input type="radio" group="pet_name" name="pet_name" value="<%=pet.name %>" <h2><%= pet.name  %></h2></input><br />
-									<ul>
-										<% pet.toys.each do |toy| %>
-											<li> <%= toy %></li>
+									<input type="radio" group="pet_name" name="pet_name" value="<%=@pet_info[pet][0] %>" <h2><%= @pet_info[pet][0]%></h2></input><br />
+									<ul><% @pet_info[pet][4].split("|").each do |toy| %>
+											<li>
+											<%= toy %>
+											</li>
 										<% end %>
-								</td>
-								
-					<% end %>
-				</table>
+									</ul>
+
+								<% end %>
+							</td>
+
+						</tr>
+					</table>
 					<button>Delete</button>
 				</form>
 			</td>

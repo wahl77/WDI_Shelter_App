@@ -25,8 +25,8 @@
 			<td>
 				<form action="/Shelter" method="get">
 					<select name="shelter_name">
-						<% $shelters.each do |key, shelter| %>
-							<option value="<%= shelter.name %>" ><%= shelter.name %></option> 
+						<% @shelters.each do |shelter| %>
+							<option value="<%= shelter %>" ><%= shelter %></option> 
 						<% end %>
 					</select>
 					<button> Submit </button>
