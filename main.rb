@@ -149,10 +149,10 @@ end
 
 get "/Users/adopt_pet" do
 	begin
-	pet_name = params[:pet_name]
-	$curr_pet = $curr_shelter.pets[pet_name]
-	$curr_user.adopt_pet($curr_pet, $curr_shelter)
-	erb :shelter_adopt_final 
+		pet_name = params[:pet_name]
+		$curr_pet = $curr_shelter.pets[pet_name]
+		$curr_user.adopt_pet($curr_pet, $curr_shelter)
+		erb :shelter_adopt_final 
 	rescue
 		erb :index
 	end
@@ -203,10 +203,11 @@ end
 
 get "/shelter_add_pet" do
 	@pet = Pet.new(params[:pet_name], params[:gender], params[:type]) 
+	@pet.add_toy([params[:toys]])
 	suckr = ImageSuckr::GoogleSuckr.new   
 	@pet.url = suckr.get_image_url({"q" => "#{params[:type]}"})
-
-	$curr_shelter.add_pet(@pet)
+	add_pet(@pet)
+	add_pet_owner($curr_shelter, "shelter", @pet.name)
 
 	erb :shelter_pet_add
 end
@@ -221,10 +222,46 @@ get "/Shelter" do
 	erb :shelter
 end
 
+def add_pet(pet)
+	file = "data/pets.txt"
+	file = File.new(file, 'r')
+	while (line = file.gets)
+		words = line.split(",")
+		if words[0] == pet.name
+			file.close
+			return "Error, Pet exist"
+		end
+	end
+	file = File.new(file, 'a')
+	file.puts pet.name + "," + pet.gender + "," + pet.type + "," + pet.url + "," + pet.toys[0]
+	file.close
+	return "Pet added successfully" 
+end
+
+def add_pet_owner(owner_name, owner_type, pet_name)
+	t_file = Tempfile.new('temp.txt')
+
+	if owner_type == "client"
+		file = "data/people.txt"
+	elsif owner_type == "shelter"
+		file = "data/shelter.txt"
+	end
+	file = File.open(file, 'r')
+	while (line = file.gets)
+		if line.split(",")[0] == owner_name
+			t_file.write line.gsub(/[,]$/,'|'+pet_name+',')
+		end
+	end
+	t_file.close
+
+	FileUtils.mv(t_file.path, file)
+	return "Owner delted succesfully" 
+end
+
 
 def remove_owner(owner_name, owner_type)
 	t_file = Tempfile.new('temp.txt')
-	
+
 	if owner_type == "client"
 		file = "data/people.txt"
 	elsif owner_type == "shelter"
@@ -237,7 +274,9 @@ def remove_owner(owner_name, owner_type)
 		end
 	end
 	t_file.close
-	
+
 	FileUtils.mv(t_file.path, file)
+
 	return "Owner delted succesfully"
+
 end
