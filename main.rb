@@ -44,6 +44,7 @@ $shelters = {}
 $shelters["shelter_1"] = shelter_1
 $shelters["shelter_2"] = shelter_2
 
+# Now the program begins
 $curr_user
 $curr_shelter
 $curr_pet
@@ -58,29 +59,46 @@ get "/Users/menu" do
 	erb :users
 end
 get "/Users/Users_Give_away" do
-	pet_name = params[:pet_name]
-	$curr_pet = $curr_user.pets[pet_name]
-	erb :users_give_away_shelter
+	begin
+		pet_name = params[:pet_name]
+		$curr_pet = $curr_user.pets[pet_name]
+		erb :users_give_away_shelter
+	rescue
+		erb :index
+	end
 end
 
 get "/Users/final_give_away" do
-	shelter_name = params[:shelter_name]
-	$curr_shelter = $shelters[shelter_name]
-	$curr_user.give_pet_away($curr_pet, $curr_shelter)
-	erb :final_give_away
+	begin
+		shelter_name = params[:shelter_name]
+		$curr_shelter = $shelters[shelter_name]
+		$curr_user.give_pet_away($curr_pet, $curr_shelter)
+		erb :final_give_away
+	rescue
+		erb :index
+	end
+
 end
 
 get "/Users/shelter_list_pets" do 
-	shelter_name = params[:shelter_name]
-	$curr_shelter = $shelters[shelter_name]
-	erb :shelter_list_pets
+	begin
+		shelter_name = params[:shelter_name]
+		$curr_shelter = $shelters[shelter_name]
+		erb :shelter_list_pets
+	rescue
+		erb :index
+	end
 end
 
 get "/Users/adopt_pet" do
+	begin
 	pet_name = params[:pet_name]
 	$curr_pet = $curr_shelter.pets[pet_name]
 	$curr_user.adopt_pet($curr_pet, $curr_shelter)
 	erb :shelter_adopt_final 
+	rescue
+		erb :index
+	end
 end
 
 get "/Users/shelter_list" do
@@ -94,7 +112,7 @@ end
 get "/Admin_Validate" do
 	@message = ""
 	if params[:add_user] != nil
-    # Add user
+		# Add user
 		if $users[params[:add_user]] != nil
 			@message =  "Sorry, user exist"
 		else
@@ -102,11 +120,11 @@ get "/Admin_Validate" do
 			@message = "User added successfully"
 		end
 	elsif params[:del_user] != nil
-    # Del user
+		# Del user
 		$users.delete(params[:del_user])	
 		@message = "User deleted successfully"
 	elsif params[:add_shelter] != nil
-    # Add shelter
+		# Add shelter
 		if $shelters[params[:add_shelter]] != nil
 			@message =  "Sorry, Shelter exist"
 		else
@@ -114,7 +132,7 @@ get "/Admin_Validate" do
 			@message = "Shelter added successfully"
 		end
 	elsif params[:del_shelter] != nil
-    # Del shelter
+		# Del shelter
 		$shelters.delete(params[:del_shelter])	
 		@message = "Shelter deleted successfully"
 	else
@@ -123,6 +141,17 @@ get "/Admin_Validate" do
 
 	erb :admin_validate
 
+end
+
+get "/shelter_delete_pet" do
+	begin
+		pet_name = params[:pet_name]
+		$curr_pet = $curr_shelter.pets[pet_name]
+		$curr_shelter.remove_pet($curr_pet)
+		erb :shelter_del_pet
+	rescue
+		erb :index
+	end
 end
 
 get "/shelter_add_pet" do
@@ -138,8 +167,6 @@ end
 get "/Shelter" do
 	shelter_name = params[:shelter_name]
 	$curr_shelter = $shelters[shelter_name]
-
-	
 	erb :shelter
 end
 
