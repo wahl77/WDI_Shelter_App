@@ -1,0 +1,7 @@
+Max_dog, m, dog, http://www.hdwallpapersbest.com/wp-content/uploads/2012/09/American-eskimo-dog-picture.jpg, asdf|toy_b
+Joe, f, cat, http://images.wisegeek.com/young-calico-cat.jpg, toy_a|toy_b
+Blue, f, cat, http://images.wisegeek.com/young-calico-cat.jpg, toy_a|toy_b
+Blah, f, cat, http://images.wisegeek.com/young-calico-cat.jpg, toy_a|toy_b
+asdf,male,dog,http://upload.wikimedia.org/wikipedia/commons/3/3d/Komondor_Westminster_Dog_Show_crop.jpg,
+adsfa,male,dog,http://www.hdwallpapersbest.com/wp-content/uploads/2012/09/American-eskimo-dog-picture.jpg,toy_1|toy_2
+my_cat,male,cat,http://upload.wikimedia.org/wikipedia/commons/d/d4/Cat_March_2010-1a.jpg,new_toys|ok
