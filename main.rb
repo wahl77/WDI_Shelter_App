@@ -6,6 +6,10 @@ require "sinatra"
 require "sinatra/reloader"
 require "image_suckr"
 
+# For file manipulation
+require 'fileutils'
+require 'tempfile'
+
 require_relative "client"
 require_relative "pets"
 require_relative "shelter"
@@ -173,22 +177,17 @@ get "/Admin_Validate" do
 		@message =  add_owner(params[:add_user], "client")
 	elsif params[:del_user] != nil
 		# Del user
-		$users.delete(params[:del_user])	
-		@message = "User deleted successfully"
+		@message = remove_owner(params[:del_user], "client")	
 	elsif params[:add_shelter] != nil
 		# Add shelter
 		@message =  add_owner(params[:add_shelter], "shelter")
-		
 	elsif params[:del_shelter] != nil
 		# Del shelter
-		$shelters.delete(params[:del_shelter])	
-		@message = "Shelter deleted successfully"
+		@message = remove_owner(params[:del_shelter], "shelter")	
 	else
 		@message = "Error"
 	end
-
 	erb :admin_validate
-
 end
 
 get "/shelter_delete_pet" do
@@ -223,3 +222,22 @@ get "/Shelter" do
 end
 
 
+def remove_owner(owner_name, owner_type)
+	t_file = Tempfile.new('temp.txt')
+	
+	if owner_type == "client"
+		file = "data/people.txt"
+	elsif owner_type == "shelter"
+		file = "data/shelter.txt"
+	end
+	file = File.open(file, 'r')
+	while (line = file.gets)
+		unless line.split(",")[0] == owner_name
+			t_file.write line
+		end
+	end
+	t_file.close
+	
+	FileUtils.mv(t_file.path, file)
+	return "Owner delted succesfully"
+end
