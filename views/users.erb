@@ -14,21 +14,21 @@
 			<td>
 				<form method="get" action="Users_Give_away" />
 				<table>
-					<% $curr_user.pets.each do |k, pet| %>
-							<tr>
-								<td>
-									<img src="<%= pet.url %>" width="100px" />
-								</td>
-								<td>
-
-									<input type="radio" group="pet_name" name="pet_name" value="<%=pet.name%>" <h2><%= pet.name  %></h2></input>
-									<ul>
-										<% pet.toys.each do |toy| %>
-											<li> <%= toy %></li>
-										<% end %>
-									</ul>
-								</td>
-							</tr>
+					<% @pets.each do |pet| %>
+						<tr>
+							<td>
+								<img src="<%= @pet_info[pet][3] %>" width="100px" />
+							</td>
+							<td>
+								<%= @pet_info[pet][0] %>
+								<ul><% @pet_info[pet][4].split("|").each do |toy| %>
+									<li>
+										<%= toy %>
+									</li>
+								<% end %>
+								</ul>
+							</td>
+						</tr>
 					<% end %>
 				</table>
 					<button>Give Away</button>

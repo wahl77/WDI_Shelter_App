@@ -15,8 +15,8 @@
 			<td>
 				<form action="/Users/menu" method="get">
 					<select name="user_name">
-						<% $users.each do |key, user| %>
-							<option value="<%= user.name %>" ><%= user.name %></option> 
+						<% @users.each do |user| %>
+							<option value="<%= user %>" ><%= user %></option> 
 						<% end %>
 					</select>
 					<button> Submit </button>

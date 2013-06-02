@@ -10,54 +10,65 @@ require_relative "client"
 require_relative "pets"
 require_relative "shelter"
 
-suckr = ImageSuckr::GoogleSuckr.new   
-pet = Pet.new("Max:dog", "m", "dog")
-pet.url = suckr.get_image_url({"q" => "#{pet.type}"})
-pet2 = Pet.new("choui", "m", "dog")
-pet2.url = suckr.get_image_url({"q" => "#{pet.type}"})
-
-
-pet.toys=["adsfa", "adfa"]
-pet.get_toys
-
-shelter_1 = Shelter.new("shelter_1")
-
-puts "Shelter 1 has pets:"
-print shelter_1.avail_pets
-puts "Adding a pet"
-shelter_1.add_pet(pet)
-print shelter_1.avail_pets
-shelter_2 = Shelter.new("shelter_2")
-shelter_2.add_pet(pet2)
-
-Franky = Client.new("Franky")
-Franky.has_pets
-Franky.adopt_pet(pet, shelter_1)
-Franky.has_pets
-
-shelter_2.add_pet(pet2)
-
-$users = {}
-$users["Franky"] = Franky
-$users["Max"] = Client.new("Max")
-$shelters = {}
-$shelters["shelter_1"] = shelter_1
-$shelters["shelter_2"] = shelter_2
-
 # Now the program begins
 $curr_user
 $curr_shelter
 $curr_pet
 
+def get_users
+	user_file = "data/people.txt"
+	file = File.new(user_file, 'r')
+	users = []
+	while (line = file.gets)
+		words = line.split(",")
+		users << words[0]
+	end
+	return users
+end
+
+def get_user_pet(user_name)
+	user_file = "data/people.txt"
+	file = File.new(user_file, 'r')
+	users = []
+	while (line = file.gets)
+		words = line.split(",")
+		if words[0] == user_name
+			dogs = words[1].split("|")
+			return dogs
+		end
+	end
+end
+
+def get_pet_info(pet_name)
+	pet_file = "data/pets.txt"
+	file = File.new(pet_file, 'r')
+	pet_info = []
+	while (line = file.gets)
+		words = line.split(",")
+		if words[0] == pet_name
+			pet_info = words
+			return pet_info
+		end
+	end
+end
+
+
 
 get "/" do
+	@users = get_users
 	erb :index
 end
+
 get "/Users/menu" do
-	user_name = params[:user_name]
-	$curr_user = $users[user_name]
+	$curr_user = params[:user_name]
+	@pet_info = {}
+	@pets = get_user_pet($curr_user)
+	@pets.each do |pet|
+		@pet_info[pet] = get_pet_info(pet)
+	end
 	erb :users
 end
+
 get "/Users/Users_Give_away" do
 	begin
 		pet_name = params[:pet_name]
