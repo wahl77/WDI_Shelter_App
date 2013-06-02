@@ -27,8 +27,8 @@
 			<td>
 				<form method="get" action="Admin_Validate">
 					<select name="del_user">
-						<% $users.each do |key, user| %>
-							<option value="<%= user.name %>" ><%= user.name %></option> 
+						<% @users.each do |user| %>
+							<option value="<%= user %>" ><%= user %></option> 
 						<% end %>
 					</select>
 					<button>Delete user</button>
@@ -37,8 +37,8 @@
 			<td>
 			 <form method="get" action="Admin_Validate">
 					<select name="del_shelter">
-						<% $shelters.each do |key, user| %>
-							<option value="<%= user.name %>" ><%= user.name %></option> 
+						<% @shelters.each do |shelter| %>
+							<option value="<%= shelter %>" ><%= shelter %></option> 
 						<% end %>
 					</select>
 					<button>Delete Shelter</button>

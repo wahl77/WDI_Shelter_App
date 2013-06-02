@@ -15,6 +15,29 @@ $curr_user
 $curr_shelter
 $curr_pet
 # End of session information
+#
+
+def add_owner(owner_name, owner_type)
+	if owner_type == "client"
+		file = "data/people.txt"
+	elsif owner_type == "shelter"
+		file = "data/shelter.txt"
+	end
+	file = File.new(file, 'r')
+	while (line = file.gets)
+		words = line.split(",")
+		if words[0] == owner_name
+			file.close
+			return "Error, owner exist"
+		end
+	end
+	file = File.new(file, 'a')
+	file.puts owner_name + ",," 
+	file.close
+	return "Owner added successfully"
+end
+
+
 
 def get_users
 	user_file = "data/people.txt"
@@ -136,31 +159,26 @@ get "/Users/shelter_list" do
 end
 
 get "/Admin" do
+	@users = get_users
+	@shelters = get_shelters
 	erb :admin
 end
 
 get "/Admin_Validate" do
+	@users = get_users
+	@shelters = get_shelters
 	@message = ""
 	if params[:add_user] != nil
 		# Add user
-		if $users[params[:add_user]] != nil
-			@message =  "Sorry, user exist"
-		else
-			$users[params[:add_user]] = Client.new(params[:add_user])
-			@message = "User added successfully"
-		end
+		@message =  add_owner(params[:add_user], "client")
 	elsif params[:del_user] != nil
 		# Del user
 		$users.delete(params[:del_user])	
 		@message = "User deleted successfully"
 	elsif params[:add_shelter] != nil
 		# Add shelter
-		if $shelters[params[:add_shelter]] != nil
-			@message =  "Sorry, Shelter exist"
-		else
-			$shelters[params[:add_shelter]] = Shelter.new(params[:add_shelter])
-			@message = "Shelter added successfully"
-		end
+		@message =  add_owner(params[:add_shelter], "shelter")
+		
 	elsif params[:del_shelter] != nil
 		# Del shelter
 		$shelters.delete(params[:del_shelter])	
