@@ -2,7 +2,7 @@
 <div class="main_txt">
 	<h1>Shelter  Website</h1> 
 	<h1> You are <%= $curr_shelter.name %></h1>
-	<table width="100%">
+	<table width="100%" border="1px">
 		<thead>
 			<tr>
 				<td><h1>Delete pet</h1></td>
@@ -12,10 +12,24 @@
 		<tr>
 			<td>
 				<form action="shelter_delete_pet" method="get">
+						<table>
+
 
 					<% $curr_shelter.pets.each do |k, pet| %>
+							<tr>
+								<td>
+									<img src="<%= pet.url %>" width="100px" />
+								</td>
+								<td>
 						<input type="radio" group="pet_name" name="pet_name" value="<%=pet.name %>" <h2><%= pet.name  %></h2></input><br />
+									<ul>
+										<% pet.toys.each do |toy| %>
+											<li> <%= toy %></li>
+										<% end %>
+								</td>
+								
 					<% end %>
+				</table>
 					<button>Delete</button>
 				</form>
 			</td>

@@ -4,9 +4,17 @@
 	<h1>Shelter  Website</h1> 
 	<hr />
 	<form method="get" action="adopt_pet" />
-		<% $curr_shelter.pets.each do |k, pet| %>
-			<input type="radio" group="pet_name" name="pet_name" value="<%=pet.name%>" <h2><%= pet.name  %></h2></input><br />
+		<table>
+			<% $curr_shelter.pets.each do |k, pet| %>
+			<tr>
+				<td>
+					<img src="<%= pet.url %>" width="100px" />
+				</td>
+				<td>
+				<input type="radio" group="pet_name" name="pet_name" value="<%=pet.name%>" <h2><%= pet.name  %></h2></input><br />
+			</td>
 		<% end %>
+	</table>
 		<button>Adopt</button>
 	</form>
 </div>

@@ -10,8 +10,11 @@ require_relative "client"
 require_relative "pets"
 require_relative "shelter"
 
+suckr = ImageSuckr::GoogleSuckr.new   
 pet = Pet.new("Max:dog", "m", "dog")
+pet.url = suckr.get_image_url({"q" => "#{pet.type}"})
 pet2 = Pet.new("choui", "m", "dog")
+pet2.url = suckr.get_image_url({"q" => "#{pet.type}"})
 
 
 pet.toys=["adsfa", "adfa"]
