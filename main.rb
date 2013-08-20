@@ -249,13 +249,13 @@ def add_pet_owner(owner_name, owner_type, pet_name)
 	file = File.open(file, 'r')
 	while (line = file.gets)
 		if line.split(",")[0] == owner_name
-			t_file.write line.gsub(/[,]$/,'|'+pet_name+',')
+			t_file.write line.gsub(/[,]$/,''+pet_name+'|,')
 		end
 	end
 	t_file.close
 
 	FileUtils.mv(t_file.path, file)
-	return "Owner delted succesfully" 
+	return "Owner added succesfully" 
 end
 
 

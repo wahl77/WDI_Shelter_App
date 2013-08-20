@@ -5,3 +5,5 @@ Blah, f, cat, http://images.wisegeek.com/young-calico-cat.jpg, toy_a|toy_b
 asdf,male,dog,http://upload.wikimedia.org/wikipedia/commons/3/3d/Komondor_Westminster_Dog_Show_crop.jpg,
 adsfa,male,dog,http://www.hdwallpapersbest.com/wp-content/uploads/2012/09/American-eskimo-dog-picture.jpg,toy_1|toy_2
 my_cat,male,cat,http://upload.wikimedia.org/wikipedia/commons/d/d4/Cat_March_2010-1a.jpg,new_toys|ok
+pet_of_new_shelter,male,cat,http://postmediawindsorstar.files.wordpress.com/2013/01/cat_shot_by_arrow-1.jpg,afas|asb
+asdfa,male,dog,http://upload.wikimedia.org/wikipedia/commons/3/3d/Komondor_Westminster_Dog_Show_crop.jpg,ASD
